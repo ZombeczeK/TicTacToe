@@ -2,6 +2,8 @@ import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 
+import static java.lang.Integer.parseInt;
+
 public class OX {
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
@@ -19,13 +21,22 @@ public class OX {
                     String message = input.readUTF();
                     System.out.println(message);
                     if (message.equals("Twoja kolej")) {
-                        System.out.print("Podaj wiersz (0-2): ");
-                        int row = scanner.nextInt();
-                        System.out.print("Podaj kolumne (0-2): ");
-                        int col = scanner.nextInt();
-
-                        output.writeInt(row);
-                        output.writeInt(col);
+                        String row, col;
+                        int row_i, col_i;
+                        try{
+                            System.out.print("Podaj wiersz (0-2): ");
+                            row = scanner.nextLine();
+                            System.out.print("Podaj kolumne (0-2): ");
+                            col = scanner.nextLine();
+                            row_i = parseInt(row);
+                            col_i = parseInt(col);
+                        }
+                        catch(Exception e){
+                            row_i = 3;
+                            col_i = 3;
+                        }
+                        output.writeInt(row_i);
+                        output.writeInt(col_i);
                     } else if (message.equals("Czekaj na ruch przeciwnika...")) {
                         Thread.sleep(100); // Dodanie opóźnienia, aby nie powtarzać zbyt szybko
                     }

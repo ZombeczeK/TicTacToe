@@ -19,12 +19,12 @@ public class OXS {
         Socket player1Socket = serverSocket.accept();
         System.out.println("Gracz 1 polaczony.");
 
-        Socket player2Socket = serverSocket.accept();
-        System.out.println("Gracz 2 polaczony.");
-
         DataInputStream player1Input = new DataInputStream(player1Socket.getInputStream());
         player1Output = new DataOutputStream(player1Socket.getOutputStream());
         player1Output.writeUTF("Gracz 1 polaczony. Czekaj na przeciwnika...");
+
+        Socket player2Socket = serverSocket.accept();
+        System.out.println("Gracz 2 polaczony.");
 
         DataInputStream player2Input = new DataInputStream(player2Socket.getInputStream());
         player2Output = new DataOutputStream(player2Socket.getOutputStream());
@@ -61,13 +61,13 @@ public class OXS {
                 }
                 if (symbol == 'X' && playerOneTurn || symbol == 'O' && !playerOneTurn) {
                     output.writeUTF("Twoja kolej");
-                    int row = input.readInt();
-                    int col = input.readInt();
-
-                    lock.lock();
 
                     try {
-                        if (board[row][col] == '\0' && row >=0 && row < 3 && col >=0 && col < 3) {
+                        int row = input.readInt();
+                        int col = input.readInt();
+
+                        lock.lock();
+                        if (board[row][col] == '\0') {
                             board[row][col] = symbol;
                             playerOneTurn = !playerOneTurn;
                             broadcastBoard();
