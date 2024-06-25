@@ -38,7 +38,7 @@ public class OX {
                         output.writeInt(row_i);
                         output.writeInt(col_i);
                     } else if (message.equals("Czekaj na ruch przeciwnika...")) {
-                        Thread.sleep(100); // Dodanie opóźnienia, aby nie powtarzać zbyt szybko
+                        Thread.sleep(100);
                     }
                       else if (message.startsWith("Jezeli chcesz zagrac")) {
                         int choice = scanner.nextInt();

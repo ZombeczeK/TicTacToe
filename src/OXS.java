@@ -36,14 +36,14 @@ public class OXS {
 
     private static void handlePlayer(DataInputStream input, DataOutputStream output, char symbol) {
         try {
-            output.writeUTF("Czekaj na ruch przeciwnika..."); // Inicjalizacja informacji oczekiwania na ruch
+            output.writeUTF("Czekaj na ruch przeciwnika..."); 
 
             while (true) {
                 if(wygranko && koniec == 0){
                     output.writeUTF("Przegranko!");
                     koniec++;
                 }
-                if (moves >= 9){
+                if (moves >= 9 && koniec == 0){
                     output.writeUTF("Gra zakonczona remisem!");
                     koniec++;
                 }
@@ -119,14 +119,12 @@ public class OXS {
                         }
                     }
                 } else {
-                    // Oczekiwanie na ruch przeciwnika
                     counter++;
                     if(counter == 100){
                     output.writeUTF("Czekaj na ruch przeciwnika");
                     counter = 0;
                     }
-
-                    Thread.sleep(100); // Dodanie opóźnienia, aby nie powtarzać wysyłania zbyt szybko
+                    Thread.sleep(100);
                 }
             }
         } catch (IOException | InterruptedException e) {
